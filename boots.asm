@@ -2,7 +2,7 @@
 ; A boot sector that prints a string using our function.
 ;
 [org 0x7c00] ; Tell the assembler where this code will be loaded
-
+;create BPB table beforehand, usb emulated floppy
 boot:
     jmp main
     TIMES 3-($-$$) DB 0x90   ; Support 2 or 3 byte encoded JMPs before BPB.
@@ -29,32 +29,34 @@ boot:
     fileSysType:       db    "FAT12   "
 
 main:
+	; set segment registers and stack site
 	xor ax, ax
 	mov ds, ax
 	mov es, ax
-	mov ss, ax
-	mov [boot_device], dl ; BIOS stores boot drive in dl hold it for later 
-	
-	mov bp, 0x8000 ; set stack load site
+	mov ss, ax	
+	mov bp, 0x7c00 ; set stack load site below bootsite to prevent overwrite
 	mov sp, bp ; set top to bottom eg empty stack
+	mov [boot_device], dl ; BIOS stores boot drive in dl, grab it for later 
+
 	
-	;set params for diskLoad bx
-	mov bx, 0x9000 ; set loadsite for drive
-	mov dh, 4 ; num sectors = 5
+	;set params for diskLoad bx= loadsite dx=(num sectors, boot device)
+	mov bx, 0xa000 ; set loadsite for drive
+	mov dh, 4 ; num sectors = 4
 	mov dl, [boot_device]
+	; we want to load 4 sectors from [boot_device] starting at 0xa000
 	call diskLoad
 
 
-	mov dx, [9000h]	;	print first loaded word
+	mov dx, [0xa000]	;	print first loaded word
 	call printHex
 
-	mov dx, [0x9200] ; print 1st word from second loaded sector
+	mov dx, [0xa200] ; print 1st word from second loaded sector
 	call printHex
 
-	mov dx, [0x9400] ; print 1st word from third loaded sector
+	mov dx, [0xa400] ; print 1st word from third loaded sector
 	call printHex
 	
-	mov dx, [0x9600] ; print 1st word from fourth loaded sector
+	mov dx, [0xa600] ; print 1st word from fourth loaded sector
 	call printHex
 	call newline
 	mov bx, msg

@@ -15,10 +15,10 @@ printStringDone:
 	ret
 
 
-; Hmsg:
-; 	db 'hello',13,10,0 ; <-- 0=null terminus 13=carriageReturn 10=linefeed
-; Gmsg:
-; 	db 'goodbye',13,10,0
+Hmsg:
+	db 'hello',13,10,0 ; <-- 0=null terminus 13=carriageReturn 10=linefeed
+Gmsg:
+	db 'goodbye',13,10,0
 
 
 newline: 

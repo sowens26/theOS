@@ -1,4 +1,3 @@
-[org 0x7c00]
 printHex:
     pusha
     mov cx, 0x0004
