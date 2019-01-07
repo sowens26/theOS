@@ -30,7 +30,7 @@ loadKernel:
 
     mov bx, KERNEL_OFFSET
     call printString
-    mov dh, 1 ; first  sectors excluding boot sector
+    mov dh, 1 ; first # sectors excluding boot sector
     mov dl, [boot_device]
     call diskLoad
     ret
