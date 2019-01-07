@@ -28,5 +28,29 @@ newline:
 	ret
 newlinecharacters:
 	db '  |',13,10,0
+
+[bits 32]
+VGA_MEM equ 0xb8000
+WHITE_ON_BLACK equ 0x0f
+
+printStringPM:
+	pusha
+	mov edx, VGA_MEM
+printStringPM_loop:
+	mov al, [ebx]	;	al char
+	mov ah, WHITE_ON_BLACK ; ah attributes
+
+	cmp al,0	; if char is 0 null terminus
+	je printStringPM_done
+
+	mov [edx],ax ; store char and attributes and current char cell 
+
+	add ebx, 1	; increment to next char in string
+	add edx, 2	; move to next char cell in vga mem
+
+	jmp printStringPM_loop
+printStringPM_done:
+	popa
+	ret
 	
 

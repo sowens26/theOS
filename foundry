@@ -1,3 +1,0 @@
-#! /bin/bash
-nasm boots.asm -f bin -o boots.bin
-qemu-system-x86_64 boots.bin
