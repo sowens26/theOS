@@ -10,7 +10,9 @@ switch_to_32pm:
     ; clear pipeline to ensure no 16bits instructions attempt to run
     ; far jumps/ segment jumps for pipeline flushes
     ; far jump = jmp <segment>:<address offset>
-    sti
+
+    sti ;release interrupts/ this line may not be necessary
+        ;I believe sti will be reinited after the below longjump
     jmp CODE_SEGMENT:init32pm
 
 [bits 32]
