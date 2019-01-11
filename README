@@ -1,0 +1,15 @@
+This project attempts to build the basic framework to boot a C based kernel in an x86 Assembly environment.
+
+os-image is a prebuilt image of the current release
+
+all assembly function files are contained within the funcs directory
+
+all C code is contained within clib
+
+boots.asm is the core of the bootloader 
+
+kernel-boots.asm is a simple linking file to connect the kernel and bootloader
+
+build_script.sh may or may not work on your system with some modification it is my local build file. I've included it simply to show the process of compilation and building, you will likely have a slightly different build file.
+
+as of now most documentation is contained within code files, README will be updated soon.
