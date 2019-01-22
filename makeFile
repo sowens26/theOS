@@ -1,0 +1,15 @@
+
+clean:
+	rm *.bin *.o
+
+all: os-image
+run: all
+	bochs
+os-image: boots.bin kernel.bin
+	cat $^ > os-image
+kernel.bin: kernel-boots.o kernel.oformat
+	ld -o kernel.bin -Ttext 0x1000 $^ --oformat binary
+kernel.o: kernel.c
+	gcc -ffreestanding -c $< -o $@
+kernel-boots.o: kernel-entry.asm
+	nasm $< -f elf -o $@

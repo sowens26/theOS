@@ -7,17 +7,17 @@
 #if you are on windows or linux you should be able to simply use your regular gcc toolkit
 
 
-alias ccgcc="/usr/local/gcc-4.8.1-for-linux32/bin/i586-pc-linux-gcc"
-alias ccld="/usr/local/gcc-4.8.1-for-linux32/bin/i586-pc-linux-ld"
+alias gcc="/usr/local/gcc-4.8.1-for-linux32/bin/i586-pc-linux-gcc"
+alias ld="/usr/local/gcc-4.8.1-for-linux32/bin/i586-pc-linux-ld"
 
 #compile bootload
 nasm boots.asm -o boots.bin
 #compile kernel-bootloader link
 nasm kernel-boots.asm -f elf -o kernel-boots.o 
 #compile kernel
-ccgcc clib/kernel.c -c -ffreestanding -o kernel.o
+gcc clib/kernel.c -c -ffreestanding -o kernel.o
 #link kernel with kernel-bootloader link
-ccld -o kernel.bin -Ttext 0x1000 --oformat binary kernel-boots.o kernel.o
+ld -o kernel.bin -Ttext 0x1000 --oformat binary kernel-boots.o kernel.o
 #write the actual image file
 cat boots.bin kernel.bin > os-image
 #clean up directory
