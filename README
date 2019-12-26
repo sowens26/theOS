@@ -10,6 +10,6 @@ boots.asm is the core of the bootloader
 
 kernel-boots.asm is a simple linking file to connect the kernel and bootloader
 
-build_script.sh may or may not work on your system with some modification it is my local build file. I've included it simply to show the process of compilation and building, you will likely have a slightly different build file.
+build_script.sh may or may not work on your system with some modification it is my local build file. I've included it simply to show the process of compilation and building.
 
-as of now most documentation is contained within code files, README will be updated soon.
+as of now most documentation is contained within code files.
